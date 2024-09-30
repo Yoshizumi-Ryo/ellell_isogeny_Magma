@@ -36,7 +36,7 @@ Average time(sec): 0.036
 
 Here, we compre with the algorithm $\mathtt{GetIsogeny}$ of the paper [Isogenies on Kummer Surfaces](https://arxiv.org/abs/2409.14819).
 
-We implemented in Magma as follows:
+We implemented for the same $p$ and $\ell$ as above in Magma as follows:
 
 ```
 >load "benchmarks.m";
