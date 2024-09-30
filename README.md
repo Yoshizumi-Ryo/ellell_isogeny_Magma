@@ -1,4 +1,4 @@
-# Magma_isogeny
+# Measuring the time of $(\ell,\ell)$-isogenies in Magma.
 
 We can measure time to implement two algorithms $\mathtt{CodOne}$ and $\mathtt{CodSq}$ for $\ell=3,5,7,11,13,17,19$ over $\mathbb{F}_{p^2}$. 
 The bit length of $p$ is 121.
@@ -8,7 +8,7 @@ By implementing an algorithm $n$ times, we provide the average implementation ti
 
 ## usage
 
-First, we load ```main.m``` as follows:
+First, we load ```main.m```  in Magma as follows:
 ```
 load "main.m";
 ```
