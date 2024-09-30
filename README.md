@@ -36,7 +36,9 @@ Average time(sec): 0.036
 
 Here, we compre with the algorithm $\mathtt{GetIsogeny}$ of the paper [Isogenies on Kummer Surfaces](https://arxiv.org/abs/2409.14819).
 
-We implemented for the same $p$ as above and for $\ell=5,7,11,13$  in Magma as follows:
+We can implement for the same $p$ as above and for $\ell=5,7,11,13$.
+
+Under [NN_isogenies](https://github.com/mariascrs/NN_isogenies), write in Magma as follows:
 
 ```
 >load "benchmarks.m";
