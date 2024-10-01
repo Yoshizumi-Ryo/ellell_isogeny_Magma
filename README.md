@@ -67,7 +67,7 @@ we use
 ```
 load "runner.m";
 ```
-You need to rewrite some parameter in ```"runner.m"```.
+You need to rewrite a prime number $p$ and degree $N$ in ```"runner.m"```.
 
 
 
