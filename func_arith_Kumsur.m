@@ -81,3 +81,47 @@ end function;
 
 
 
+// Three way addition function in Magma
+function Extended_Addition(tc_0, tc_x, tc_y, tc_z, tc_xpy, tc_ypz, tc_zpx,K)
+    prod_0_ypz   := [tc_0[i] * tc_ypz[i]  : i in [1..4]];
+    prod_zpx_xpy := [tc_zpx[i] * tc_xpy[i] : i in [1..4]];
+    prod_y_z     := [tc_y[i] * tc_z[i]     : i in [1..4]];
+    sum_prod_0_ypz   := [K!0 : i in [1..4]];
+    sum_prod_zpx_xpy := [K!0 : i in [1..4]];
+    sum_prod_y_z     := [K!0 : i in [1..4]];
+    for chi in [1..4] do
+        chi_t := [K!((-1)^((Floor((chi-1)/2) mod 2) * (Floor((t-1)/2) mod 2) + 
+                        (chi-1) mod 2 * (t-1) mod 2)) : t in [1..4]];
+        for t in [1..4] do
+            sum_prod_0_ypz[chi]   +:= chi_t[t] * prod_0_ypz[t];
+            sum_prod_zpx_xpy[chi] +:= chi_t[t] * prod_zpx_xpy[t];
+            sum_prod_y_z[chi]     +:= chi_t[t] * prod_y_z[t];
+        end for;
+    end for;
+    E_chi := [[sum_prod_0_ypz[chi] * sum_prod_zpx_xpy[chi], sum_prod_y_z[chi]] : chi in [1..4]];
+    E_chi, den1 := Common_denom_frac_4(E_chi);
+    pre_tc_xpypz := [];
+    for i in [1..4] do
+        chi_i := [K!((-1)^((Floor((chi-1)/2) mod 2) * (Floor((i-1)/2) mod 2) + 
+                        (chi-1) mod 2 * (i-1) mod 2)) : chi in [1..4]];
+        sum_part_i := K!0;
+        for chi in [1..4] do
+            sum_part_i +:= chi_i[chi] * E_chi[chi][1];
+        end for;
+        pre_tc_xpypz[i] := [sum_part_i, 4 * tc_x[i]];
+    end for;
+    pre_tc_xpypz, den_xpypz := Common_denom_frac_4(pre_tc_xpypz);
+    den_xpypz *:= tc_xpy[5] * tc_ypz[5] * tc_zpx[5] * den1;
+    dx_dy_dz := tc_x[5] * tc_y[5] * tc_z[5] * tc_0[5];
+    for i in [1..4] do
+        pre_tc_xpypz[i][1] *:= dx_dy_dz;
+    end for;
+    tc_xpypz := [];
+    for i in [1..4] do
+        tc_xpypz[i]:=pre_tc_xpypz[i][1];
+    end for;
+    tc_xpypz[5]:= den_xpypz;
+    return tc_xpypz;
+end function;
+
+
