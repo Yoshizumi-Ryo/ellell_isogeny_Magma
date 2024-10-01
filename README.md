@@ -3,7 +3,7 @@
 We can measure time to implement two algorithms $\mathtt{CodOne}$, $\mathtt{CodSq}$, and  $\mathtt{EvaOne}$ for $\ell=3,5,7,11,13,17,19$ over $\mathbb{F}_{p^2}$. 
 The bit length of $p$ is 121.
 
-By implementing an algorithm $n$ times, we provide the average implementation time of the algorithm. Here, $n$ is an inputed positive integer. 
+By implementing algorithms $n$ times for each, we provide the average implementation times of the algorithms. Here, $n$ is an inputed positive integer. 
 
 
 ## usage
@@ -23,6 +23,11 @@ ell= 3
 CodOne: Average time(sec): 0.001
 CodSq : Average time(sec): 0.002
 EvaOne: Average time(sec): 0.002
+
+ell= 5
+CodOne: Average time(sec): 0.001
+CodSq : Average time(sec): 0.003
+EvaOne: Average time(sec): 0.005
 
 ...
 
