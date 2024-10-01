@@ -18,7 +18,19 @@ Time_for_isogeny({the above n});
 ```
 For example, if $n=30$,  
 ```
->Time_for_isogeny(30);
+> Time_for_isogeny(30);
+ell= 3
+CodOne: Average time(sec): 0.001
+CodSq : Average time(sec): 0.002
+EvaOne: Average time(sec): 0.002
+
+...
+
+ell= 19
+CodOne: Average time(sec): 0.037
+CodSq : Average time(sec): 0.037
+EvaOne: Average time(sec): 0.081
+
 ```
 
 
