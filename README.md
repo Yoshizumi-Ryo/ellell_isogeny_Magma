@@ -54,14 +54,20 @@ Then, define the following $p$ which is the same as our implementasion:
 ```
 p:=4696592703174116824165605645274228079;
 ```
-For computing codomain, 
+For computing codomain, i.e., for measuring time of $\mathtt{GetImage}$, write
 ```
 benchmark_getimage(100, 50, 10 : Ns := [3,5,7,11,13,17,19], primes := [p,p,p,p,p,p,p]);
 ```
-For computing evaluation, 
+For computing isogeny,  i.e., for measuring time of $\mathtt{GetIsogeny}$, write
 ```
 benchmark_table1(100, 50, 10 : Ns := [5,7,11,13] , primes := [p,p,p,p]);
 ```
+For computing evaluation.,  i.e., for measuring time of $\mathtt{Evaluation}$, 
+we use 
+```
+load "runner.m";
+```
+You need to rewrite some parameter in ```"runner.m"```.
 
 
 
