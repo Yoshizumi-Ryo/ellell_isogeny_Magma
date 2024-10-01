@@ -1,7 +1,8 @@
 # Measuring the time of $(\ell,\ell)$-isogenies in Magma.
 
-We can measure time to implement two algorithms $\mathtt{CodOne}$, $\mathtt{CodSq}$, and  $\mathtt{EvaOne}$ for $\ell=3,5,7,11,13,17,19$ over $\mathbb{F}_{p^2}$. 
-The bit length of $p$ is 121.
+We can measure time to implement two algorithms $\mathtt{CodOne}$, $\mathtt{CodSq}$, and  $\mathtt{EvalOne}$ for $\ell=3,5,7,11,13,17,19$ over $\mathbb{F}_{p^2}$. 
+Here, $p$ is 4696592703174116824165605645274228079 whose bit length is 122.
+
 
 By implementing algorithms $n$ times for each, we provide the average implementation times of the algorithms. Here, $n$ is an inputed positive integer. 
 
@@ -46,42 +47,20 @@ Here, we compre with the algorithm $\mathtt{GetIsogeny}$ of the paper [Isogenies
 We can implement for the same $p$ as above and for $\ell=5,7,11,13$.
 
 Under [NN_isogenies](https://github.com/mariascrs/NN_isogenies), write in Magma as follows:
-
 ```
->load "benchmarks.m";
-Loading "benchmarks.m"
-Loading "functions.m"
-Loading "isoNN.m"
-Loading "scalings.m"
-Loading "partition.m"
->p:=1536977231315969305425444639443786099;
->primes_logp100 := [p,p,p,p];
->benchmark_table1(100, 50, 10 : Ns := [5, 7, 11, 13] , primes := primes_logp100);
-Using pre-generated primes.
-
-Getting results for Method 2.
-Working with N = 5
-Sample: 1
-Sample: 2
-Sample: 3
-
-...
-
-[ 1536977231315969305425444639443786099, 1536977231315969305425444639443786099, 
-1536977231315969305425444639443786099, 1536977231315969305425444639443786099 ]
-[ 121, 121, 121, 121 ]
-[
-    [ 0.003, 0.001, 0.000, 0.006 ],
-    [ 0.016, 0.004, 0.005, 0.030 ],
-    [ 0.535, 0.011, 0.090, 0.706 ],
-    [ 2.859, 0.019, 0.287, 3.334 ]
-]
-[
-    [ 0.017, 0.002, 0.008, 0.036 ],
-    [ 0.542, 0.010, 0.019, 0.644 ],
-    [ 2.875, 0.018, 0.025, 3.088 ]
-]
-
+load "benchmarks.m";
+```
+Then, define the following $p$ which is the same as our implementasion:
+```
+p:=4696592703174116824165605645274228079;
+```
+For computing codomain, 
+```
+benchmark_getimage(100, 50, 10 : Ns := [3,5,7,11,13,17,19], primes := [p,p,p,p,p,p,p]);
+```
+For computing evaluation, 
+```
+benchmark_table1(100, 50, 10 : Ns := [5,7,11,13] , primes := [p,p,p,p]);
 ```
 
 
