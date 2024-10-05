@@ -5,7 +5,7 @@ load "isoNN.m";
 
 
 
-function Time_SFalg(N,num_samples,method,num_points)
+procedure Time_SFalg(N,num_samples,method,num_points)
     assert (N ge 5);
     assert (method eq 2 or method eq 3);
     assert (num_points ge 0);
@@ -53,8 +53,13 @@ function Time_SFalg(N,num_samples,method,num_points)
         //"Average:", &+times/(i-errors), ".\n";
     end for;
     av_time := &+times/(num_samples);
-    return av_time;
-end function;
+    log2p:=Floor(Log(p) / Log(2)) + 1;
+    print("");
+    printf "log_2(p)= %o\n", log2p;
+    printf "ell= %o\n", N;
+    print "method:", method; 
+    printf "Average time(sec): %o\n", av_time;
+end procedure;
 
 
 
