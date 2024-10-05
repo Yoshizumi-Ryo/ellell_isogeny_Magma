@@ -29,7 +29,7 @@ Time_for_isogeny_1({the number of samples s});
 ```
 For example, if $s=10$,  
 ```
-> Time_for_isogeny(10);
+> Time_for_isogeny_1(10);
 ell= 5
 CodOne: Average time(sec): 0.002
 CodSq : Average time(sec): 0.002
