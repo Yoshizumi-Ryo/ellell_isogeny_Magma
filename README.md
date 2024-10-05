@@ -1,5 +1,10 @@
 # Measuring the time of $(\ell,\ell)$-isogenies in Magma.
 
+
+Here algorithms are proposed in a paper: "Efficient theta-based algorithms for computing $(\ell,\ell)$-isogenies on Kummer surfaces for arbitrary odd $\ell$"". The ePrint is [here](https://eprint.iacr.org/2024/1519). 
+These are written in [Magma](http://magma.maths.usyd.edu.au/magma/).
+
+
 We can measure time to implement two algorithms $\mathtt{CodOne}$, $\mathtt{CodSq}$.
 In addition, we can mesure the total time to compute the theta-null point of codomain and theta coordiantes of imeges of $n$ points.
 
