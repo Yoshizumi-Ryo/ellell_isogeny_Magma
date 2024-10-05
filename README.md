@@ -20,7 +20,7 @@ load "main.m";
 
 Write as follows:
 ```
-Time_for_isogeny_1({sample numbers s});
+Time_for_isogeny_1({the number of samples s});
 ```
 For example, if $s=10$,  
 ```
@@ -43,12 +43,9 @@ CodSq : Average time(sec): 0.013
 ```
 ### Time to compute a theta-null point of codomain and theta coordinates of images of n points.
 
-Time_for_isogeny_2(10,2);
-
-
 Write as follows:
 ```
-Time_for_isogeny_2({sample numbers s},{the number of points n});
+Time_for_isogeny_2({the number of samples s},{the number of points n});
 ```
 
 For example, if $s=10$ and $n=2$, 
@@ -83,28 +80,40 @@ Here, we compre with the algorithm of the paper [Isogenies on Kummer Surfaces](h
 
 We can implement for the same $p$ as above and for $\ell=5,7,11,13$.
 
-Under [NN_isogenies](https://github.com/mariascrs/NN_isogenies), write in Magma as follows:
+Under [NN_isogenies](https://github.com/mariascrs/NN_isogenies)  in Magma, load  ```additional_file.m``` in this folder: 
 ```
-load "benchmarks.m";
+load "additional_file.m";
 ```
-Then, define the following $p$ which is the same as our implementasion:
+
+You choose the degree $\ell$, the number of samples $s$, the method to compute isogeny from GF and sqrt, and the number of sending points $n\ge 0$. 
+In Table 1, we implement $n=0$, and in Table 2, we implements $n=1,\dots,5$.
+Then, write as follows: 
+
 ```
-p:=4696592703174116824165605645274228079;
+Time_SFalg({degree ell},{the number of samples s},{method 2(GE) or 3(sqrt)},{the number of points n});
 ```
-For computing codomain, i.e., for measuring time of $\mathtt{GetImage}$, write
+
+For example, if $\ell=5, s=10$, method GE, $n=3$; then,  
+
 ```
-benchmark_getimage(100, 50, 10 : Ns := [3,5,7,11,13,17,19], primes := [p,p,p,p,p,p,p]);
+>Time_SFalg(5,10,2,3);
+Sample: 1 0.010 (sec)
+Sample: 2 0.000 (sec)
+Sample: 3 0.010 (sec)
+Sample: 4 0.010 (sec)
+Sample: 5 0.000 (sec)
+Sample: 6 0.010 (sec)
+Sample: 7 0.010 (sec)
+Sample: 8 0.010 (sec)
+Sample: 9 0.000 (sec)
+Sample: 10 0.010 (sec)
+
+log_2(p)= 256
+ell= 5
+method: 2
+Average time(sec): 0.007
 ```
-For computing isogeny,  i.e., for measuring time of $\mathtt{GetIsogeny}$, write
-```
-benchmark_table1(100, 50, 10 : Ns := [5,7,11,13] , primes := [p,p,p,p]);
-```
-For computing evaluation.,  i.e., for measuring time of $\mathtt{Evaluation}$, 
-we use 
-```
-load "runner.m";
-```
-You need to rewrite a prime number $p$ and degree $N$ in ```"runner.m"```.
+
 
 
 
