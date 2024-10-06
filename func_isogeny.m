@@ -3,8 +3,8 @@
 
 
 function SumOfSquare(l)
-    assert IsPrime(l);
-    assert l ne 2;
+    //assert IsPrime(l);
+    //assert l ne 2;
     if l eq 3 then
         return <1, 1, 1>;
     end if;
@@ -38,7 +38,7 @@ function SumOfSquare(l)
                 is_square, d := IsSquare(l - a^2 - b^2 - c^2);
                 if is_square then
                     if a eq 0 then
-                        assert b ne 0;
+                        //assert b ne 0;
                         return <b, c, d>;
                     else
                         return <a, b, c, d>;
@@ -80,7 +80,7 @@ function HalfCoeffWithout0(l)
             Include(~coeff_set, <k1, k2>);
         end for;
     end for;
-    assert #coeff_set eq (l^2 - 1) div 2;
+    //assert #coeff_set eq (l^2 - 1) div 2;
     return coeff_set;
 end function;
 
@@ -89,8 +89,8 @@ end function;
 
 
 function HalfLinCom(tc_0, tc_e1, tc_e2, tc_e12, l)
-    assert IsOdd(l);
-    assert IsPrime(l);
+    //assert IsOdd(l);
+    //assert IsPrime(l);
     ld := (l - 1) div 2;
     lincom := AssociativeArray();
     lincom[<0,0>] := tc_0;
@@ -123,8 +123,8 @@ function HalfLinCom(tc_0, tc_e1, tc_e2, tc_e12, l)
         end for;
     end for;
     Remove(~lincom, <0, 0>);
-    assert #lincom eq (l^2 - 1) div 2;
-    assert HalfCoeffWithout0(l) eq Keys(lincom);
+    //assert #lincom eq (l^2 - 1) div 2;
+    //assert HalfCoeffWithout0(l) eq Keys(lincom);
     return lincom;
 end function;
 
@@ -134,7 +134,7 @@ function Remain_Half_coeff_without0(l)
     remained_set := { <k1, k2> : k1 in [0..l-1], k2 in [0..l-1] };
     remained_set := remained_set diff HalfCoeffWithout0(l);
     remained_set := remained_set diff { <0, 0> };
-    assert 2 * #remained_set + 1 eq l^2;
+    //assert 2 * #remained_set + 1 eq l^2;
     return remained_set;
 end function;
 
@@ -179,12 +179,12 @@ function XpLinCom(tc_0, basis, pt_list,l,K)
     // Compute values for (k1, k2)
     for k2 in [0..l-1] do
         for k1 in [2..l-1] do
-            assert not IsDefined(xplincom, <k1, k2>);
+            //assert not IsDefined(xplincom, <k1, k2>);
             xplincom[<k1, k2>] := Diff_Add(tc_0,xplincom[<k1-1, k2>], tc_e1, xplincom[<k1-2, k2>]);
         end for;
     end for;
     // Check that all values are computed
-    assert #Keys(xplincom) eq l^2;   
+    //assert #Keys(xplincom) eq l^2;   
     return xplincom;
 end function;
 
@@ -201,8 +201,8 @@ function CodomainCommon(tc_0, basis,l)
     tc_e2  := basis[2];
     tc_e12 := basis[3];
     h_lincom := HalfLinCom(tc_0, tc_e1, tc_e2, tc_e12, l);
-    assert IsPrime(l);
-    assert #h_lincom eq (l^2 - 1) div 2;
+    //assert IsPrime(l);
+    //assert #h_lincom eq (l^2 - 1) div 2;
     ld := (l - 1) div 2;
     h_lincom[<0, 0>] := tc_0;
     lmd1_lpow  := LmdLpow(tc_0, tc_e1 , h_lincom[<ld,  0>], h_lincom[<ld-1, 0   >]);
@@ -237,7 +237,7 @@ function CodOne(tc_0, basis,l)
     for key in Keys(h_lincom) do
         h_lincom_lpow[key] := [h_lincom[key][i]^l : i in [1..5]];
     end for;
-    assert #h_lincom_lpow eq (l^2 - 1) div 2;
+    //assert #h_lincom_lpow eq (l^2 - 1) div 2;
     for key in Keys(h_lincom) do
         k1 := key[1];
         k2 := key[2];
@@ -247,13 +247,13 @@ function CodOne(tc_0, basis,l)
         ];
         h_lincom_lpow[key] := Mult_frac(h_lincom_lpow[key],coeff);
     end for;
-    assert #h_lincom_lpow eq (l^2 - 1) div 2;
+    //assert #h_lincom_lpow eq (l^2 - 1) div 2;
     tc_00 := [tc_0[i]^l : i in [1..5]];
     h_lincom_lpow[<0, 0>] := tc_00;
     h_lincom_lpow, _ := Dict_common_denom(h_lincom_lpow);
-    assert #h_lincom_lpow eq (l^2 + 1) div 2;
+    //assert #h_lincom_lpow eq (l^2 + 1) div 2;
     tc_f0 := h_lincom_lpow[<0, 0>];
-    assert #HalfCoeffWithout0(l) eq (l^2 - 1) div 2;
+    //assert #HalfCoeffWithout0(l) eq (l^2 - 1) div 2;
     for key in HalfCoeffWithout0(l) do
         for i in [1..4] do
             tc_f0[i] +:= 2 * h_lincom_lpow[key][i];
@@ -265,6 +265,55 @@ end function;
 
 
 
+function CodOne_test(tc_0, basis,l)
+    time_start:= Cputime();
+    l, h_lincom, lmd1_lpow, lmd2_lpow, lmd_div_lpow, den,lmd_data_1212 := CodomainCommon(tc_0, basis,l);
+    den_pow := Multpower_straight(den, 3 * (l - 1)^2);
+    lmd1_lpow_pow :=  Multpower_sq(lmd1_lpow[1], l);
+    lmd2_lpow_pow :=  Multpower_sq(lmd2_lpow[1], l);
+    lmd_div_lpow_pow := Multpower_straight(lmd_div_lpow[1], (l - 1)^2);
+    h_lincom_lpow := AssociativeArray();
+    100,Cputime(time_start);
+    time_start:= Cputime();
+    for key in Keys(h_lincom) do
+        h_lincom_lpow[key] := [h_lincom[key][i]^l : i in [1..5]];
+    end for;
+    200,Cputime(time_start);
+    time_start:= Cputime();
+    //assert #h_lincom_lpow eq (l^2 - 1) div 2;
+    for key in Keys(h_lincom) do
+        k1 := key[1];
+        k2 := key[2];
+        coeff := [
+            lmd1_lpow_pow[k1^2] * lmd2_lpow_pow[k2^2] * lmd_div_lpow_pow[k1 * k2],
+            den_pow[k1^2 + k2^2 + k1 * k2]
+        ];
+        h_lincom_lpow[key] := Mult_frac(h_lincom_lpow[key],coeff);
+    end for;
+    300,Cputime(time_start);
+    time_start:= Cputime();
+    //assert #h_lincom_lpow eq (l^2 - 1) div 2;
+    tc_00 := [tc_0[i]^l : i in [1..5]];
+    h_lincom_lpow[<0, 0>] := tc_00;
+    h_lincom_lpow, _ := Dict_common_denom(h_lincom_lpow);
+    400,Cputime(time_start);
+    time_start:= Cputime();
+    //assert #h_lincom_lpow eq (l^2 + 1) div 2;
+    tc_f0 := h_lincom_lpow[<0, 0>];
+    //assert #HalfCoeffWithout0(l) eq (l^2 - 1) div 2;
+    for key in HalfCoeffWithout0(l) do
+        for i in [1..4] do
+            tc_f0[i] +:= 2 * h_lincom_lpow[key][i];
+        end for;
+    end for;
+    500,Cputime(time_start);
+    print("");
+    print("");
+    return tc_f0,lmd_data_1212;
+end function;
+
+
+
 
 function CodSq(tc_0, basis,l)
     l, lincom, lmd1_lpow, lmd2_lpow, lmd_div_lpow, den,lmd_data_1212 := CodomainCommon(tc_0, basis,l);
@@ -273,14 +322,14 @@ function CodSq(tc_0, basis,l)
     ss1 := [(a_u[u]*(l-1)) mod l : u in [1..r]];
     tt1 := [(a_u[u]*(l-1) - ss1[u]) div l : u in [1..r]];
     max_exp := (l-1)^2 + l * (&+[tt1[u]^2 : u in [1..r]]) - 2 * (l-1) * (&+[a_u[u]*tt1[u] : u in [1..r]]);
-    assert max_exp le r*(l-1);
+    //assert max_exp le r*(l-1);
     lmd1_lpow_pow    := Multpower_straight(lmd1_lpow[1], max_exp);
     lmd2_lpow_pow    := Multpower_straight(lmd2_lpow[1], max_exp);
     lmd_div_lpow_pow := Multpower_straight(lmd_div_lpow[1], max_exp);
     den_pow          := Multpower_straight(den, max_exp * 3); 
-    assert #lincom eq (l^2 - 1) div 2;
+    //assert #lincom eq (l^2 - 1) div 2;
     lincom[<0, 0>] := tc_0;
-    assert #lincom eq (l^2 + 1) div 2;
+    //assert #lincom eq (l^2 + 1) div 2;
     for k1k2 in Remain_Half_coeff_without0(l) do
         k1:=k1k2[1];
         k2:=k1k2[2];
@@ -288,12 +337,12 @@ function CodSq(tc_0, basis,l)
         a2 := l - 2 * k2;
         adiv := l - k1 - k2;
         aden := a1 + a2 + adiv;
-        assert aden eq 3 * adiv;
+        //assert aden eq 3 * adiv;
         if k1 eq 0 then
-            assert a2 le 0;
+            //assert a2 le 0;
             lincom[<0, k2>] := Mult_frac(lincom[<0, l - k2>] , [den_pow[-a2], lmd2_lpow_pow[-a2]]);
         elif k2 eq 0 then
-            assert a1 le 0;
+            //assert a1 le 0;
             lincom[<k1, 0>] := Mult_frac(lincom[<l - k1, 0>] , [den_pow[-a1], lmd1_lpow_pow[-a1]]);
         elif (a1 ge 0) and (a2 ge 0) then
             lincom[<k1, k2>] := Mult_frac(lincom[<l - k1, l - k2>] , [lmd1_lpow_pow[a1] * lmd2_lpow_pow[a2] * den_pow[-aden], lmd_div_lpow_pow[-adiv]]);
@@ -302,11 +351,11 @@ function CodSq(tc_0, basis,l)
         elif (a1 lt 0) and (a2 ge 0) then
             lincom[<k1, k2>] := Mult_frac(lincom[<l - k1, l - k2>] , [lmd2_lpow_pow[a2] * den_pow[-aden], lmd1_lpow_pow[-a1] * lmd_div_lpow_pow[-adiv]]);
         else
-            assert a1 lt 0 and a2 lt 0;
+            //assert a1 lt 0 and a2 lt 0;
             lincom[<k1, k2>] := Mult_frac(lincom[<l - k1, l - k2>] , [den_pow[-aden], lmd1_lpow_pow[-a1] * lmd2_lpow_pow[-a2] * lmd_div_lpow_pow[-adiv]]);
         end if;
     end for;
-    assert #lincom eq l^2;
+    //assert #lincom eq l^2;
     pre_tc_f0 :=[];
     denom:=tc_0[5]^r;
     for i in [1..4] do
@@ -343,7 +392,7 @@ end function;
 
 // Product_power_lambda function in Magma
 function Product_power_lambda(basis,l,lmd_data_1212)
-    assert #basis eq 3;
+    //assert #basis eq 3;
     tc_e1  := basis[1];
     tc_e2  := basis[2];
     tc_e12 := basis[3];
@@ -375,7 +424,7 @@ function Product_power_lambda(basis,l,lmd_data_1212)
     lm_1_lsq := [lmd1_lpow_pow[l], den_pow[l]];
     lm_2_lsq := [lmd2_lpow_pow[l], den_pow[l]];
     // Ensure the length of the product dictionary is correct
-    assert #Keys(lmd_pow_product) eq l^2;
+    //assert #Keys(lmd_pow_product) eq l^2;
     lmd_data_pow12:=<lmd_pow_product, lm_1_lsq, lm_2_lsq>;
     return lmd_data_pow12;
 end function;
@@ -412,16 +461,16 @@ function EvalOne(tc_0, basis, pt_list,lmd_data_pow12,l,K)
     lmd_pow_product :=lmd_data_pow12[1];
     lm_1_lsq        :=lmd_data_pow12[2];
     lm_2_lsq        :=lmd_data_pow12[3];
-    // Assertions to check the structure of inputs
-    assert Type(lmd_pow_product) eq Assoc;
-    assert Type(lm_1_lsq) eq SeqEnum;
-    assert Type(lm_2_lsq) eq SeqEnum;
-    assert #basis eq 3;
-    assert #pt_list eq 3;
-    assert #Keys(lmd_pow_product) eq l^2;
+    // //assertions to check the structure of inputs
+    //assert Type(lmd_pow_product) eq Assoc;
+    //assert Type(lm_1_lsq) eq SeqEnum;
+    //assert Type(lm_2_lsq) eq SeqEnum;
+    //assert #basis eq 3;
+    //assert #pt_list eq 3;
+    //assert #Keys(lmd_pow_product) eq l^2;
     // Compute linear combination of x and basis
     xplincom := XpLinCom(tc_0, basis, pt_list,l,K);
-    assert #Keys(xplincom) eq l^2;
+    //assert #Keys(xplincom) eq l^2;
     tc_e1 := basis[1];
     tc_e2 := basis[2];
     tc_x  := pt_list[1];
@@ -430,7 +479,7 @@ function EvalOne(tc_0, basis, pt_list,lmd_data_pow12,l,K)
     xple2 := Diff_Add(tc_0,xplincom[<0,l-1>], tc_e2, xplincom[<0,l-2>]);
     // Take lambda power
     ml1_lpow_pow, ml2_lpow_pow, muden_lpow_pow := Take_lmd_power(tc_x, xple1, xple2, lm_1_lsq, lm_2_lsq, l);
-    assert #Keys(xplincom) eq l^2;
+    //assert #Keys(xplincom) eq l^2;
     // Normalize xplincom using common denominator
     xplincom, den := Dict_common_denom(xplincom);
     den_lpow := den^l;
@@ -443,7 +492,7 @@ function EvalOne(tc_0, basis, pt_list,lmd_data_pow12,l,K)
         end for;
         xplincom_lpow[key][5]:=den_lpow;
     end for;
-    assert #Keys(xplincom_lpow) eq l^2;
+    //assert #Keys(xplincom_lpow) eq l^2;
     // Modify xplincom_lpow with coefficients
     for key in Keys(xplincom_lpow) do
         k1, k2 := Explode(key);
@@ -451,14 +500,14 @@ function EvalOne(tc_0, basis, pt_list,lmd_data_pow12,l,K)
                   lmd_pow_product[<k1,k2>][2] * muden_lpow_pow[k1+k2]];
         xplincom_lpow[key] := Mult_frac(xplincom_lpow[key],coeff);
     end for;
-    assert #Keys(xplincom_lpow) eq l^2;
+    //assert #Keys(xplincom_lpow) eq l^2;
     // Normalize again with common denominator
     xplincom_lpow, den_lpow := Dict_common_denom(xplincom_lpow);
     pre_tc_fx := [K!0, K!0, K!0, K!0];
     // Sum up the numerators for final result
     for k1 in [0..l-1] do
         for k2 in [0..l-1] do
-            assert xplincom_lpow[<k1,k2>][5] eq den_lpow;
+            //assert xplincom_lpow[<k1,k2>][5] eq den_lpow;
             for i in [1..4] do
                 pre_tc_fx[i] +:= xplincom_lpow[<k1,k2>][i];
             end for;

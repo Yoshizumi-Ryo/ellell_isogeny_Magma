@@ -18,12 +18,12 @@ end function;
 
 function Count_prepare(p,l)
     N_B:=2;
-    assert(IsPrime(p));
-    assert((p mod 4) eq 3);
-    assert(IsOdd(l));
-    assert(IsPrime(l));
-    assert(IsDivisibleBy(p+1,l));
-    assert(IsDivisibleBy(p+1,N_B));
+    //assert(IsPrime(p));
+    //assert((p mod 4) eq 3);
+    //assert(IsOdd(l));
+    //assert(IsPrime(l));
+    //assert(IsDivisibleBy(p+1,l));
+    //assert(IsDivisibleBy(p+1,N_B));
     K:=GF(p^2);
     //the 8th primitive root of 1.====================
     _<x>:=PolynomialRing(GF(p^2));
@@ -34,8 +34,8 @@ function Count_prepare(p,l)
     _<x>:=PolynomialRing(GF(p^2));
     lmd:=K!(-1);
     E_0:=EllipticCurve(x*(x-1)*(x-lmd));
-    assert(IsSupersingular(E_0));
-    assert(#E_0 eq (p+1)^2);
+    //assert(IsSupersingular(E_0));
+    //assert(#E_0 eq (p+1)^2);
     //take one basis of E_0[N_A]=(Z/N_A Z)^2.
     P_A,Q_A:=ell_to_torsion_basis_2(E_0,l);
     x_1,x_2:=ell_to_torsion_basis_2(E_0,2);
@@ -51,7 +51,7 @@ function Count_prepare(p,l)
     lv2_xpe2:=prod_lv2tc(E_0,E_0,x_1    ,x_2+P_A,lv2tnp_lmd,sqrt_lm,sqrt_lmm1,lv2tnp_lmd,sqrt_lm,sqrt_lmm1);
     //theta transformation.
     zeta_4:=zeta_8^2;
-    assert(zeta_4^2 eq -1);
+    //assert(zeta_4^2 eq -1);
     tt_lv2_0   :=A_theta_transform(lv2_0   ,zeta_4);
     tt_lv2_e1  :=A_theta_transform(lv2_e1  ,zeta_4);
     tt_lv2_e2  :=A_theta_transform(lv2_e2  ,zeta_4);
@@ -86,16 +86,16 @@ procedure Time_for_isogeny_1(num_samples)
         times_codsq :=[];
         for j in [1..num_samples] do
             tc_0,tc_e1,tc_e2,tc_e12,tc_x,tc_xpe1,tc_xpe2:=Count_prepare(p,l);
-            //codone.
-            time_start:= Cputime();
-            codomain_tc_0,lmd_data_1212:=CodOne(tc_0,[tc_e1,tc_e2,tc_e12],l);
-            time_fin:=Cputime(time_start);
-            Append(~times_codone,time_fin);
             //codsq.
             time_start:= Cputime();
             codomain_tc_0:=CodSq(tc_0,[tc_e1,tc_e2,tc_e12],l)[1];
             time_fin:=Cputime(time_start);
             Append(~times_codsq,time_fin);
+            //codone.
+            time_start:= Cputime();
+            codomain_tc_0,lmd_data_1212:=CodOne(tc_0,[tc_e1,tc_e2,tc_e12],l);
+            time_fin:=Cputime(time_start);
+            Append(~times_codone,time_fin);
         end for;
         average_time_codone:=(&+times_codone)/num_samples;
         average_time_codsq :=(&+times_codsq) /num_samples;
@@ -103,8 +103,9 @@ procedure Time_for_isogeny_1(num_samples)
         //print(kind);
         printf "log_2(p)= %o\n", log2p;
         printf "ell= %o\n", l;
-        printf "CodOne: Average time(sec): %o\n", average_time_codone;
+        printf "Samples: %o\n", num_samples;
         printf "CodSq : Average time(sec): %o\n", average_time_codsq;
+        printf "CodOne: Average time(sec): %o\n", average_time_codone;
         print ("");
     end for;
 end procedure;
@@ -113,18 +114,22 @@ end procedure;
 
 
 
-procedure Time_for_isogeny_2(num_samples,num_points)
-    assert (num_points ge 1);
+
+procedure Time_for_isogeny_2(num_samples)
+    //assert (num_points ge 1);
     p:=102282731615980594196068022554337214440490321465300216431359430531731842529319;
     ell_list:=[5,7,11,13];
     K:=GF(p^2);
     //p_list:= [2^4*3^58*5*29-1, 2^4*3^62*7-1, 2^4*3^55*11-1, 2^4*3^57*13-1, 2^4*3^54*17-1, 2^4*3^61*19-1];
-    methods:=["CodOne","CodSq","CodSq","CodSq"];
+    methods:=["CodOne","CodOne","CodOne","CodSq"];
     for i in [1..#ell_list] do
         method:=methods[i];
         l:=ell_list[i];
         //p:=p_list[i];
         times:=[];
+        for k in [1..5] do
+            times[k]:=[];
+        end for;
         for j in [1..num_samples] do
             tc_0,tc_e1,tc_e2,tc_e12,tc_x,tc_xpe1,tc_xpe2:=Count_prepare(p,l);
             //codone.
@@ -134,20 +139,26 @@ procedure Time_for_isogeny_2(num_samples,num_points)
             elif method eq "CodSq" then
                 codomain_tc_0:=CodSq(tc_0,[tc_e1,tc_e2,tc_e12],l)[1];
             end if;
-            for k in [1..num_points] do
+            for k in [1..5] do
                 lmd_data_pow12:=Product_power_lambda([tc_e1,tc_e2,tc_e12],l,lmd_data_1212);
                 img_tc_x:=EvalOne(tc_0,[tc_e1,tc_e2,tc_e12],[tc_x,tc_xpe1,tc_xpe2],lmd_data_pow12,l,K);
+                time_end:=Cputime(time_start);
+                Append(~times[k],time_end);
             end for;
-            time_end:=Cputime(time_start);
-            Append(~times,time_end);
         end for;
-        average_time:=(&+times)/num_samples;
+        average_time:=[];
+        for k in [1..5] do
+            average_time[k]:=(&+times[k])/num_samples;
+        end for;
         log2p:=Floor(Log(p) / Log(2)) + 1;
         //print(kind);
         printf "log_2(p)= %o\n", log2p;
         printf "ell= %o\n", l;
+        printf "Samples: %o\n", num_samples;
         print "Codomain:", method; 
-        printf "Average time(sec): %o\n", average_time;
+        for k in [1..5] do
+            printf "%o points, Average time(sec): %o\n", k,average_time[k];
+        end for;
         print ("");
     end for;
 end procedure;

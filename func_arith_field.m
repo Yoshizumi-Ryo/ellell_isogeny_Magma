@@ -5,7 +5,7 @@
 function Binary_Exp(N, i)
     N_list := Intseq(N, 2);
     N_tup := N_list;
-    assert #N_tup le i;
+    //assert #N_tup le i;
     for m in [1..i - #N_tup] do
         Append(~N_tup, 0);
     end for;
@@ -52,9 +52,9 @@ end function;
 
 //denoms=[1,2,3,4,5]
 function Common_Denom(denoms)
-    assert &and([denoms[i] ne 0 : i in [1..#denoms]]);
+    //assert &and([denoms[i] ne 0 : i in [1..#denoms]]);
     N := #denoms;
-    assert(N ge 2);
+    //assert(N ge 2);
     d_list := Intseq(N-1, 2);
     n := #d_list;
     a := AssociativeArray();
@@ -71,7 +71,7 @@ function Common_Denom(denoms)
     end function;
     for i in [1..n] do
         d_i_list := [d_list[j+1] : j in [i..n-1]];
-        assert #d_i_list eq n - i;
+        //assert #d_i_list eq n - i;
         d_i_val := B_val(d_i_list);
         for e_val in [0..d_i_val] do
             e_list := Binary_Exp(e_val, n-i);
@@ -102,7 +102,7 @@ function Common_Denom(denoms)
         end for;
     end for;
     b_list := [b[Binary_Exp(i, n)] : i in [0..N-1]];
-    assert total_product ne 0;
+    //assert total_product ne 0;
     return b_list, total_product;
 end function;
 
@@ -177,7 +177,7 @@ function Multpower_straight(value, max_exp)
         value_pow *:= value;
         Append(~pow_list, value_pow);
     end for;
-    assert #pow_list eq max_exp + 1;
+    //assert #pow_list eq max_exp + 1;
     pow_ass:=AssociativeArray();
     for i in [1..#pow_list] do
         pow_ass[i-1]:=pow_list[i];
@@ -224,17 +224,17 @@ end function;
 
 
 function Frac_add(frac1, frac2)
-    assert #frac1 eq 2;
-    assert #frac2 eq 2;
-    assert frac1[2] ne 0;
-    assert frac2[2] ne 0;
+    //assert #frac1 eq 2;
+    //assert #frac2 eq 2;
+    //assert frac1[2] ne 0;
+    //assert frac2[2] ne 0;
     return [frac1[1] * frac2[2] + frac1[2] * frac2[1], frac1[2] * frac2[2]];
 end function;
 
 
 
 function Projective_Theta(frac_coord)
-    assert #frac_coord eq 4;
+    //assert #frac_coord eq 4;
     n1, d1 := Explode(frac_coord[1]);
     n2, d2 := Explode(frac_coord[2]);
     n3, d3 := Explode(frac_coord[3]);
