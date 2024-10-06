@@ -118,33 +118,40 @@ Under [NN_isogenies](https://github.com/mariascrs/NN_isogenies)  in Magma, load 
 load "additional_file.m";
 ```
 
-You choose the degree $\ell$, the number of samples $s$, the method to compute isogeny from GF and sqrt, and the number of sending points $n\ge 0$. 
-In Table 1, we implement $n=0$, and in Table 2, we implements $n=1,\dots,5$.
-Then, write as follows: 
+You choose the degree $\ell$, the number of samples $s$, the method to compute isogeny from GE(2) and sqrt(3).
+For Table 1, write as follows: 
 
 ```
-Time_SFalg({degree ell},{the number of samples s},{method 2(GE) or 3(sqrt)},{the number of points n});
+Time_SFalg_1({degree ell},{the number of samples s},{method 2(GE) or 3(sqrt)});
 ```
-
-For example, if $\ell=5, s=10$, method GE, $n=3$; then,  
-
+For example, if $\ell=5, s=50$, method 2(GE), then
 ```
->Time_SFalg(5,10,2,3);
-Sample: 1 0.010 (sec)
-Sample: 2 0.000 (sec)
-Sample: 3 0.010 (sec)
-Sample: 4 0.010 (sec)
-Sample: 5 0.000 (sec)
-Sample: 6 0.010 (sec)
-Sample: 7 0.010 (sec)
-Sample: 8 0.010 (sec)
-Sample: 9 0.000 (sec)
-Sample: 10 0.010 (sec)
-
+> Time_SFalg_1(5,50,2);
 log_2(p)= 256
 ell= 5
+Samples: 50
 method: 2
-Average time(sec): 0.007
+Average time(sec): 0.006
+```
+
+For Table 2, write as follows: 
+```
+Time_SFalg_2({degree ell},{the number of samples s},{method 2(GE) or 3(sqrt)});
+```
+
+For example, if $\ell=5, s=50$, and method 2(GE), then
+
+```
+> Time_SFalg_2(5,50,2);
+log_2(p)= 256
+ell= 5
+Samples: 50
+method: 2
+1 points, Average time(sec): 0.006
+2 points, Average time(sec): 0.006
+3 points, Average time(sec): 0.006
+4 points, Average time(sec): 0.007
+5 points, Average time(sec): 0.007
 ```
 
 
