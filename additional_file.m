@@ -75,7 +75,7 @@ procedure Time_SFalg_2(N,num_samples,method)
     poly<X,Y,Z,T>:=PolynomialRing(Fp2,4);
     P := [X,Y,Z,T];
     times := [];
-    for nn in [1..5] do
+    for nn in [1..12] do
         times[nn]:=[];
     end for;
     errors := 0; // counting number of errors we run into 
@@ -91,7 +91,7 @@ procedure Time_SFalg_2(N,num_samples,method)
         R:=JtoK(R,rosen,K);
         S:=JtoK(S,rosen,K);
         points:=[];
-        for nn in [1..5] do
+        for nn in [1..12] do
             point:=RandomKummerPoint(K);
             Append(~points,point);
         end for;
@@ -100,7 +100,7 @@ procedure Time_SFalg_2(N,num_samples,method)
         phi, _ := GetIsogeny(P, R, S, K, N, method : timing := true);
         // Checking if GetImage will work (i.e., not landing on a product of ECs)
         image_thetas := Evaluate(phi, K[2]);
-        for nn in [1..5] do
+        for nn in [1..12] do
             image_P := Evaluate(phi, points[nn]);
             time_end:=Cputime(time_start);
             Append(~times[nn],time_end);
@@ -109,7 +109,7 @@ procedure Time_SFalg_2(N,num_samples,method)
         //"Average:", &+times/(i-errors), ".\n";
     end for;
     av_time:=[];
-    for nn in [1..5] do
+    for nn in [1..12] do
         av_time[nn] := &+times[nn]/(num_samples);
     end for;
     log2p:=Floor(Log(p) / Log(2)) + 1;
@@ -118,7 +118,7 @@ procedure Time_SFalg_2(N,num_samples,method)
     printf "Samples: %o\n", num_samples;
     print "method:", method; 
     //printf "Average time(sec): %o\n", av_time;
-    for nn in [1..5] do
+    for nn in [3,6,9,12] do
         printf "%o points, Average time(sec): %o\n", nn,av_time[nn];
     end for;
 end procedure;
