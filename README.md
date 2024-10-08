@@ -135,7 +135,7 @@ For Table 2, write as follows:
 Time_SFalg_2({degree ell},{the number of samples s},{method 2(GE) or 3(sqrt)});
 ```
 
-For example, if $\ell=8, s=30$, and method 2(GE), then
+For example, if $\ell=7, s=30$, and method 2(GE), then
 
 ```
 > Time_SFalg_2(7,30,2);
