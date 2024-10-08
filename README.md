@@ -61,48 +61,44 @@ Write as follows:
 Time_for_isogeny_2({the number of samples s});
 ```
 
-For example, if $s=150$, 
+For example, if $s=50$, 
 ```
-> Time_for_isogeny_2(150); 
+> Time_for_isogeny_2(50); 
 log_2(p)= 256
 ell= 5
-Samples: 150
+Samples: 50
 Codomain: CodOne
-1 points, Average time(sec): 0.007
-2 points, Average time(sec): 0.011
 3 points, Average time(sec): 0.016
-4 points, Average time(sec): 0.021
-5 points, Average time(sec): 0.025
+6 points, Average time(sec): 0.030
+9 points, Average time(sec): 0.044
+12 points, Average time(sec): 0.058
 
 log_2(p)= 256
 ell= 7
-Samples: 150
+Samples: 50
 Codomain: CodOne
-1 points, Average time(sec): 0.014
-2 points, Average time(sec): 0.024
 3 points, Average time(sec): 0.033
-4 points, Average time(sec): 0.043
-5 points, Average time(sec): 0.052
+6 points, Average time(sec): 0.062
+9 points, Average time(sec): 0.090
+12 points, Average time(sec): 0.118
 
 log_2(p)= 256
 ell= 11
-Samples: 150
+Samples: 50
 Codomain: CodOne
-1 points, Average time(sec): 0.036
-2 points, Average time(sec): 0.060
-3 points, Average time(sec): 0.085
-4 points, Average time(sec): 0.108
-5 points, Average time(sec): 0.134
+3 points, Average time(sec): 0.084
+6 points, Average time(sec): 0.157
+9 points, Average time(sec): 0.229
+12 points, Average time(sec): 0.300
 
 log_2(p)= 256
 ell= 13
-Samples: 150
+Samples: 50
 Codomain: CodSq
-1 points, Average time(sec): 0.050
-2 points, Average time(sec): 0.084
-3 points, Average time(sec): 0.119
-4 points, Average time(sec): 0.153
-5 points, Average time(sec): 0.188
+3 points, Average time(sec): 0.120
+6 points, Average time(sec): 0.222
+9 points, Average time(sec): 0.323
+12 points, Average time(sec): 0.426
 ```
 
 
