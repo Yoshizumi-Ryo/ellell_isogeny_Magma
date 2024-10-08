@@ -135,16 +135,17 @@ For Table 2, write as follows:
 Time_SFalg_2({degree ell},{the number of samples s},{method 2(GE) or 3(sqrt)});
 ```
 
-For example, if $\ell=5, s=30$, and method 3(sqrt), then
+For example, if $\ell=8, s=30$, and method 2(GE), then
 
 ```
-> Time_SFalg_2(5,30,3);             
+> Time_SFalg_2(7,30,2);
 log_2(p)= 256
-ell= 5
+ell= 7
 Samples: 30
-method: 3
-2 points, Average time(sec): 0.006
-3 points, Average time(sec): 0.006
-4 points, Average time(sec): 0.006
-5 points, Average time(sec): 0.008
+method: 2
+2 points, Average time(sec): 0.030
+3 points, Average time(sec): 0.031
+4 points, Average time(sec): 0.031
+5 points, Average time(sec): 0.033
+
 ```
