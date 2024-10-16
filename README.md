@@ -27,7 +27,7 @@ Write as follows:
 ```
 Time_for_isogeny_1({the number of samples s});
 ```
-For example, if $s=150$,  
+For example, if $s=100$,  
 ```
 > Time_for_isogeny_1(100);
 log_2(p)= 256
