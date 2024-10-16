@@ -29,28 +29,28 @@ Time_for_isogeny_1({the number of samples s});
 ```
 For example, if $s=150$,  
 ```
-> Time_for_isogeny_1(150);
+> Time_for_isogeny_1(100);
 log_2(p)= 256
 ell= 5
-Samples: 150
+Samples: 100
 CodSq : Average time(sec): 0.003
 CodOne: Average time(sec): 0.002
 
 log_2(p)= 256
 ell= 7
-Samples: 150
-CodSq : Average time(sec): 0.006
+Samples: 100
+CodSq : Average time(sec): 0.005
 CodOne: Average time(sec): 0.004
 
 log_2(p)= 256
 ell= 11
-Samples: 150
+Samples: 100
 CodSq : Average time(sec): 0.012
 CodOne: Average time(sec): 0.011
 
 log_2(p)= 256
 ell= 13
-Samples: 150
+Samples: 100
 CodSq : Average time(sec): 0.015
 CodOne: Average time(sec): 0.016
 ```
