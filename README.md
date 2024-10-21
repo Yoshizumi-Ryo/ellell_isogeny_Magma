@@ -40,47 +40,20 @@ Average time(sec): 0.003
 
 Write as follows:
 ```
-Time_for_isogeny_2({the number of samples s});
+Time_for_isogeny_2({degree l},{the number of samples s},{method "CodSq" or "CodOne"});
 ```
 
-For example, if $s=100$, 
+For example, if $\ell=5, s=100$ and method "CodOne", 
 ```
-> Time_for_isogeny_2(100); 
+> Time_for_isogeny_2(5,100,"CodOne");
 log_2(p)= 256
 ell= 5
 Samples: 100
 Codomain: CodOne
-3 points, Average time(sec): 0.016
-6 points, Average time(sec): 0.032
-9 points, Average time(sec): 0.046
-12 points, Average time(sec): 0.061
-
-log_2(p)= 256
-ell= 7
-Samples: 100
-Codomain: CodOne
-3 points, Average time(sec): 0.034
-6 points, Average time(sec): 0.064
-9 points, Average time(sec): 0.092
-12 points, Average time(sec): 0.122
-
-log_2(p)= 256
-ell= 11
-Samples: 100
-Codomain: CodOne
-3 points, Average time(sec): 0.085
-6 points, Average time(sec): 0.156
-9 points, Average time(sec): 0.229
-12 points, Average time(sec): 0.301
-
-log_2(p)= 256
-ell= 13
-Samples: 100
-Codomain: CodSq
-3 points, Average time(sec): 0.118
-6 points, Average time(sec): 0.219
-9 points, Average time(sec): 0.321
-12 points, Average time(sec): 0.422
+3 points, Average time(sec): 0.017
+6 points, Average time(sec): 0.033
+9 points, Average time(sec): 0.047
+12 points, Average time(sec): 0.062
 ```
 
 
