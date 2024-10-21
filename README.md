@@ -25,34 +25,16 @@ load "main.m";
 
 Write as follows:
 ```
-Time_for_isogeny_1({the number of samples s});
+Time_for_isogeny_1({degree l},{the number of samples s},{method "CodSq" or "CodOne"});
 ```
-For example, if $s=100$,  
+For example, if $\ell=5, s=100$ and method "CodSq",  
 ```
-> Time_for_isogeny_1(100);
+> Time_for_isogeny_1(5,100,"CodSq");
 log_2(p)= 256
 ell= 5
 Samples: 100
-CodSq : Average time(sec): 0.003
-CodOne: Average time(sec): 0.002
-
-log_2(p)= 256
-ell= 7
-Samples: 100
-CodSq : Average time(sec): 0.005
-CodOne: Average time(sec): 0.004
-
-log_2(p)= 256
-ell= 11
-Samples: 100
-CodSq : Average time(sec): 0.012
-CodOne: Average time(sec): 0.011
-
-log_2(p)= 256
-ell= 13
-Samples: 100
-CodSq : Average time(sec): 0.015
-CodOne: Average time(sec): 0.016
+method: CodSq
+Average time(sec): 0.003
 ```
 ### Time to compute a theta-null point of codomain and theta coordinates of images of n points.
 
