@@ -4,9 +4,6 @@ load "functions.m";
 load "isoNN.m";
 
 
-
-
-
 procedure Time_SFalg_1(N,num_samples,method)
     //assert (N ge 5);
     //assert (method eq 2 or method eq 3);
@@ -51,9 +48,6 @@ procedure Time_SFalg_1(N,num_samples,method)
     print  "method:", method; 
     printf "Average time(sec): %o\n", av_time;
 end procedure;
-
-
-
 
 
 
@@ -122,4 +116,7 @@ procedure Time_SFalg_2(N,num_samples,method)
         printf "%o points, Average time(sec): %o\n", nn,av_time[nn];
     end for;
 end procedure;
+
+
+
 
